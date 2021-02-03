@@ -5,8 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartShortcuts"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="SmartShortcuts" Height="600" Width="1000" WindowStyle="ThreeDBorderWindow">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Padding="5">
+            <MenuItem Header="File">
+                <MenuItem Header="New profile"/>
+                <MenuItem Header="Settings"/>
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Create partition"/>
+                <MenuItem Header="Create shortcut"/>
+                <MenuItem Header="Edit shortcut"/>
+            </MenuItem>
+            <MenuItem Header="Help"/>
+        </Menu>
+        <Grid>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <TreeView>
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate>
+                            <TextBlock Text=""/>
+                            <HierarchicalDataTemplate.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Text=""/>
+                                        <TextBlock Grid.Column="1" Text=""/>
+                                        <TextBlock Grid.Column="2" Text=""/>
+                                    </Grid>
+                                </DataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
 </Window>
