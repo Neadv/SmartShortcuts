@@ -35,8 +35,14 @@ namespace SmartShortcuts.Model
             }
         }
 
-        private string args = "";
-        private string path = "";
+        private string args;
+        private string path;
+
+        public RunAction(string path, string args = "")
+        {
+            Path = path;
+            Args = args;
+        }
 
         public void Execute()
         {

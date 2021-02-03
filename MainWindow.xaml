@@ -20,33 +20,31 @@
             </MenuItem>
             <MenuItem Header="Help"/>
         </Menu>
-        <Grid>
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <TreeView ItemsSource="{Binding Path=Groups}">
-                    <TreeView.ItemTemplate>
-                        <HierarchicalDataTemplate ItemsSource="{Binding Path=Shortcuts}">
-                            <TextBlock Text="{Binding Name}"/>
-                            <HierarchicalDataTemplate.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition MinWidth="200"/>
-                                            <ColumnDefinition MinWidth="200"/>
-                                            <ColumnDefinition MinWidth="200"/>
-                                        </Grid.ColumnDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <TreeView ItemsSource="{Binding Path=Groups}" MouseDoubleClick="TreeViewShortcuts_MouseDoubleClick">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Shortcuts}">
+                        <TextBlock Text="{Binding Name}"/>
+                        <HierarchicalDataTemplate.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition MinWidth="200"/>
+                                        <ColumnDefinition MinWidth="200"/>
+                                        <ColumnDefinition MinWidth="200"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <Image Source="{Binding Icon}"/>
-                                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{Binding Name}"/>
-                                        <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding LastModified}"/>
-                                        <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding Type}"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </HierarchicalDataTemplate.ItemTemplate>
-                        </HierarchicalDataTemplate>
-                    </TreeView.ItemTemplate>
-                </TreeView>
-            </ScrollViewer>
-        </Grid>
+                                    <Image Source="{Binding Icon}" Width="32" Height="32"/>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="{Binding Name}"/>
+                                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding LastModified}"/>
+                                    <TextBlock Grid.Column="3" VerticalAlignment="Center" Text="{Binding Type}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </ScrollViewer>
     </DockPanel>
 </Window>

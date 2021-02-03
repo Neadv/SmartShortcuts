@@ -29,6 +29,17 @@ namespace SmartShortcuts.Model
 
         private string name;
 
+        public Group(string name)
+        {
+            Name = name;
+            Shortcuts = new ObservableCollection<Shortcut>();
+        }
+
+        public void AddShortcut(Shortcut shortcut)
+        {
+            Shortcuts.Add(shortcut);
+        }
+
         private void OnPropertyChanged([CallerMemberShip]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

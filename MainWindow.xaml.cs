@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using SmartShortcuts.Model;
 using SmartShortcuts.ViewModel;
 
@@ -14,6 +15,13 @@ namespace SmartShortcuts
             InitializeComponent();
 
             DataContext = new MainViewModel();
+        }
+
+        private void TreeViewShortcuts_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var tree = (TreeView)sender;
+            if (tree.SelectedItem is Shortcut shortcut)
+                (DataContext as MainViewModel).RunShortcut(shortcut);
         }
     }
 }

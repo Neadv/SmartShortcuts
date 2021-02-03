@@ -2,9 +2,8 @@
 using SmartShortcuts.Services;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using System.Windows.Media;
-using System.IO;
+using System.Collections.ObjectModel;
 
 namespace SmartShortcuts.Model
 {
@@ -27,12 +26,12 @@ namespace SmartShortcuts.Model
             }
         }
 
-        public string Path
+        public string IconPath
         {
-            get { return path; }
+            get { return iconPath; }
             set
             {
-                path = value;
+                iconPath = value;
                 OnPropertyChanged();
             }
         }
@@ -60,55 +59,48 @@ namespace SmartShortcuts.Model
             }
         }
 
+        public int SelectedAction
+        {
+            get { return selectedAction; }
+            set
+            {
+                selectedAction = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ImageSource Icon
         {
             get
             {
-                if (Type != ShortcutType.Folder)
-                    return IconExtracter.GetIcon(path);
+                if (iconPath != "")
+                    return IconExtracter.GetIcon(IconPath);
                 return null;
             }
         }
 
+        public ObservableCollection<IAction> Actions { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private ShortcutType type;
-        private string path;
+        private string iconPath;
         private string name;
+        private int selectedAction;
         private DateTime lastModified;
 
-        public Shortcut(string path)
+        public Shortcut(string name, string icon = "")
         {
-            Path = path;
-
-            var namePattern = new Regex(@"[\w-\.]+\Z");
-            var extensionPattern = new Regex(@"\.\w+\Z");
-            var match = namePattern.Match(path);
-
-            if (!match.Success)
-                throw new ArgumentException("incorrect path");
-
-            string name = match.Value;
-
-            match = extensionPattern.Match(name);
-
-            if (match.Success)
-                Name = name.Replace(match.Value, "");
-            else
-                Name = name;
-
+            Name = name;
+            IconPath = icon;
+            Actions = new ObservableCollection<IAction>();
+            selectedAction = -1;
             LastModified = DateTime.Now;
+        }
 
-            if (match.Success && path.Contains(".exe"))
-                Type = ShortcutType.Application;
-            else if (match.Success)
-                Type = ShortcutType.File;
-            else
-                Type = ShortcutType.Folder;
-
-            if ((Type == ShortcutType.Folder && !Directory.Exists(path)) || (Type != ShortcutType.Folder && !File.Exists(path)))
-                throw new ArgumentException("incorrect path"); 
-
+        public void AddAction(IAction action)
+        {
+            Actions.Add(action);
         }
 
         private void OnPropertyChanged([CallerMemberName] string prop = "")
