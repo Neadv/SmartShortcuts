@@ -1,7 +1,10 @@
 ﻿using System;
+using SmartShortcuts.Services;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System.Windows.Media;
+using System.IO;
 
 namespace SmartShortcuts.Model
 {
@@ -57,6 +60,16 @@ namespace SmartShortcuts.Model
             }
         }
 
+        public ImageSource Icon
+        {
+            get
+            {
+                if (Type != ShortcutType.Folder)
+                    return IconExtracter.GetIcon(path);
+                return null;
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private ShortcutType type;
@@ -92,6 +105,10 @@ namespace SmartShortcuts.Model
                 Type = ShortcutType.File;
             else
                 Type = ShortcutType.Folder;
+
+            if ((Type == ShortcutType.Folder && !Directory.Exists(path)) || (Type != ShortcutType.Folder && !File.Exists(path)))
+                throw new ArgumentException("incorrect path"); 
+
         }
 
         private void OnPropertyChanged([CallerMemberName] string prop = "")

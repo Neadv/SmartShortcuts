@@ -61,6 +61,7 @@
     <Compile Include="Model\IAction.cs" />
     <Compile Include="Model\RunAction.cs" />
     <Compile Include="Model\Shortcut.cs" />
+    <Compile Include="Services\IconExtracter.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

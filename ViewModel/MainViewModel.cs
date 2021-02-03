@@ -21,10 +21,10 @@ namespace SmartShortcuts.ViewModel
             {
                 new Group
                 {
-                    Name = "test",
+                    Name = "General",
                     Shortcuts = new ObservableCollection<Shortcut>
                     {
-                        new Shortcut("test.exe"),
+                        new Shortcut(@"E:\Programs\Godot\Godot\Godot_v3.2.4-rc1_mono_win64.exe"),
                     }
                 }
             };
