@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using SmartShortcuts.Model;
 using SmartShortcuts.ViewModel;
 
 namespace SmartShortcuts

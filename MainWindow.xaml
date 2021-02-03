@@ -22,22 +22,22 @@
         </Menu>
         <Grid>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <TreeView>
+                <TreeView ItemsSource="{Binding Path=Groups}">
                     <TreeView.ItemTemplate>
-                        <HierarchicalDataTemplate>
-                            <TextBlock Text=""/>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Path=Shortcuts}">
+                            <TextBlock Text="{Binding Name}"/>
                             <HierarchicalDataTemplate.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
+                                            <ColumnDefinition MinWidth="200"/>
+                                            <ColumnDefinition MinWidth="200"/>
+                                            <ColumnDefinition MinWidth="200"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text=""/>
-                                        <TextBlock Grid.Column="1" Text=""/>
-                                        <TextBlock Grid.Column="2" Text=""/>
+                                        <TextBlock Text="{Binding Name}"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding LastModified}"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Type}"/>
                                     </Grid>
                                 </DataTemplate>
                             </HierarchicalDataTemplate.ItemTemplate>
