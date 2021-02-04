@@ -17,6 +17,7 @@ namespace SmartShortcuts.ViewModel
         public event PropertyChangedEventHandler PropertyChanged;
 
         public RelayCommand AddNewGroupCommand { get; }
+        public RelayCommand EditGroupCommand { get; }
         public RelayCommand RunShortcutCommand { get; }
         public RelayCommand SelectedItemCommand { get; }
 
@@ -38,7 +39,8 @@ namespace SmartShortcuts.ViewModel
                             Actions = new ObservableCollection<IAction>
                             {
                                 new RunAction(@"C:\Users\Neadekvashka\Desktop\ConsoleApp1\bin\Release\netcoreapp3.1\publish\ConsoleApp1.exe"),
-                            }
+                            },
+                            Type = ShortcutType.Application
                         },
                         new Shortcut("OpenGL")
                         {
@@ -64,6 +66,13 @@ namespace SmartShortcuts.ViewModel
                 var addWindow = new AddGroupWindow(addGroup);
                 addWindow.ShowDialog();
             }, null);
+
+            EditGroupCommand = new RelayCommand((obj) =>
+            {
+                var edit = new EditGroupViewModel(selectedGroup);
+                var editWindow = new EditGroupWindow(edit);
+                editWindow.ShowDialog();
+            }, (obj) => selectedGroup != null);
 
             RunShortcutCommand = new RelayCommand((obj) => RunShortcut(selectedShortcut), (obj) => selectedShortcut != null);
 

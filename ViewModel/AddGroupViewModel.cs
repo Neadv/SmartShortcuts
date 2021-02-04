@@ -5,44 +5,25 @@ using System.ComponentModel;
 
 namespace SmartShortcuts.ViewModel
 {
-    public class AddGroupViewModel : INotifyPropertyChanged
+    public class AddGroupViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public string Name
-        {
-            get 
-            {
-                return name; 
-            }
-            set 
-            {
-                name = value;
-                OnPropertyChanged();
-            }
-        }
+        public string Name { get; set; }
 
         public Action CloseAction { get; set; }
         public RelayCommand AddCommand { get; }
         public RelayCommand CancelCommand { get; }
-
-        private string name;
 
         public AddGroupViewModel(IList<Group> groups)
         {
             AddCommand = new RelayCommand((obj) =>
             {
                 if (groups != null)
-                    groups.Add(new Group(name));
+                    groups.Add(new Group(Name));
                 CloseAction?.Invoke();
             },
-            (obj) => name != null && name != "");
+            (obj) => Name != null && Name != "");
             CancelCommand = new RelayCommand((obj) => CloseAction?.Invoke(), null);
         }
 
-        private void OnPropertyChanged([CallerMemberShip] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
     }
 }

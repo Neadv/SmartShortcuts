@@ -17,7 +17,7 @@
                 <MenuItem Header="Create partition" Command="{Binding AddNewGroupCommand}"/>
                 <MenuItem Header="Create shortcut"/>
                 <MenuItem Header="Edit shortcut"/>
-                <MenuItem Header="Edit group"/>
+                <MenuItem Header="Edit group" Command="{Binding EditGroupCommand}"/>
                 <MenuItem Header="Delete group"/>
                 <MenuItem Header="Delete shortcut"/>
             </MenuItem>
