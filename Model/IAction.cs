@@ -2,7 +2,7 @@
 
 namespace SmartShortcuts.Model
 {
-    interface IAction : INotifyPropertyChanged
+    public interface IAction : INotifyPropertyChanged
     {
         void Execute();
     }

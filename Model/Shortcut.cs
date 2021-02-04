@@ -7,14 +7,14 @@ using System.Collections.ObjectModel;
 
 namespace SmartShortcuts.Model
 {
-    enum ShortcutType
+    public enum ShortcutType
     {
         Folder,
         Application,
         File
     }
 
-    class Shortcut : INotifyPropertyChanged
+    public class Shortcut : INotifyPropertyChanged
     {
         public string Name
         {

@@ -8,33 +8,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using SmartShortcuts.View;
 
 namespace SmartShortcuts.ViewModel
 {
-    class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public RelayCommand AddNewGroupCommand { get; set; }
 
         public ObservableCollection<Group> Groups { get; set; }
 
         public MainViewModel()
         {
-            Groups = new ObservableCollection<Group>
+            Groups = new ObservableCollection<Group>();
+            AddNewGroupCommand = new RelayCommand((obj) => 
             {
-                new Group("General")
-                {
-                    Shortcuts = new ObservableCollection<Shortcut>
-                    {
-                        new Shortcut("Концепт", @"C:\Users\Neadekvashka\Desktop\Концепт.txt")
-                        {
-                            Actions = new ObservableCollection<IAction>
-                            {
-                                new RunAction(@"C:\Users\Neadekvashka\Desktop\Концепт.txt")
-                            }
-                        }
-                    }
-                }
-            };
+                var addGroup = new AddGroupViewModel(Groups);
+                var addWindow = new AddGroupWindow(addGroup);
+                addWindow.Show();
+            }, null);
         }
 
         public void RunShortcut(Shortcut shortcut)

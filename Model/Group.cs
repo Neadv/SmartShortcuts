@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SmartShortcuts.Model
 {
-    class Group : INotifyPropertyChanged
+    public class Group : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

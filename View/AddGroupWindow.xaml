@@ -1,0 +1,20 @@
+﻿<Window x:Class="SmartShortcuts.View.AddGroupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartShortcuts.View"
+        mc:Ignorable="d"
+        Title="Add new group" Height="150" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="10" FontSize="14" VerticalContentAlignment="Center"/>
+        <Button Grid.Row="1" Margin="15" Command="{Binding AddCommand}">
+            <TextBlock Text="Add" FontSize="14"/>
+        </Button>
+    </Grid>
+</Window>
