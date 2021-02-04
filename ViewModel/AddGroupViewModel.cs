@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartShortcuts.ViewModel
 {
@@ -26,7 +23,8 @@ namespace SmartShortcuts.ViewModel
         }
 
         public Action CloseAction { get; set; }
-        public RelayCommand AddCommand { get; set; }
+        public RelayCommand AddCommand { get; }
+        public RelayCommand CancelCommand { get; }
 
         private string name;
 
@@ -39,6 +37,7 @@ namespace SmartShortcuts.ViewModel
                 CloseAction?.Invoke();
             },
             (obj) => name != null && name != "");
+            CancelCommand = new RelayCommand((obj) => CloseAction?.Invoke(), null);
         }
 
         private void OnPropertyChanged([CallerMemberShip] string prop = "")

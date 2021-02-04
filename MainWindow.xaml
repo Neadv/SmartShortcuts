@@ -17,11 +17,14 @@
                 <MenuItem Header="Create partition" Command="{Binding AddNewGroupCommand}"/>
                 <MenuItem Header="Create shortcut"/>
                 <MenuItem Header="Edit shortcut"/>
+                <MenuItem Header="Edit group"/>
+                <MenuItem Header="Delete group"/>
+                <MenuItem Header="Delete shortcut"/>
             </MenuItem>
             <MenuItem Header="Help"/>
         </Menu>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <TreeView ItemsSource="{Binding Path=Groups}" MouseDoubleClick="TreeViewShortcuts_MouseDoubleClick">
+            <TreeView ItemsSource="{Binding Path=Groups}" MouseDoubleClick="TreeViewShortcuts_MouseDoubleClick" SelectedItemChanged="TreeView_SelectedItemChanged">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Path=Shortcuts}">
                         <TextBlock Text="{Binding Name}"/>

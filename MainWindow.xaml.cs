@@ -19,9 +19,14 @@ namespace SmartShortcuts
 
         private void TreeViewShortcuts_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var tree = (TreeView)sender;
-            if (tree.SelectedItem is Shortcut shortcut)
-                (DataContext as MainViewModel).RunShortcut(shortcut);
+            var runCommand = (DataContext as MainViewModel).RunShortcutCommand;
+            if (runCommand.CanExecute(sender))
+                runCommand.Execute(sender);
+        }
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            (DataContext as MainViewModel).SelectedItemCommand.Execute((sender as TreeView).SelectedItem);
         }
     }
 }

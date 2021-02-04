@@ -5,16 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartShortcuts.View"
         mc:Ignorable="d"
-        Title="Add new group" Height="150" Width="300">
+        Title="Add new group" Height="150" Width="300" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="10" FontSize="14" VerticalContentAlignment="Center"/>
-        <Button Grid.Row="1" Margin="15" Command="{Binding AddCommand}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Grid.ColumnSpan="2" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="10" FontSize="14" VerticalContentAlignment="Center"/>
+        <Button Grid.Row="1" Grid.Column="1" Margin="15" Command="{Binding AddCommand}" IsDefault="True">
             <TextBlock Text="Add" FontSize="14"/>
+        </Button>
+        <Button Grid.Row="1" Margin="15" Command="{Binding CancelCommand}" IsDefault="True">
+            <TextBlock Text="Cancel" FontSize="14"/>
         </Button>
     </Grid>
 </Window>
