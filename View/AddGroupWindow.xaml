@@ -21,7 +21,7 @@
         <Button Grid.Row="1" Grid.Column="1" Margin="15" Command="{Binding AddCommand}" IsDefault="True">
             <TextBlock Text="Add" FontSize="14"/>
         </Button>
-        <Button Grid.Row="1" Margin="15" Command="{Binding CancelCommand}" IsDefault="True">
+        <Button Grid.Row="1" Margin="15" IsCancel="True">
             <TextBlock Text="Cancel" FontSize="14"/>
         </Button>
     </Grid>

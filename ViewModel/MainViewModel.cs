@@ -16,6 +16,7 @@ namespace SmartShortcuts.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public RelayCommand AddShortcutCommand { get; }
         public RelayCommand AddNewGroupCommand { get; }
         public RelayCommand EditGroupCommand { get; }
         public RelayCommand RunShortcutCommand { get; }
@@ -88,6 +89,13 @@ namespace SmartShortcuts.ViewModel
                     selectedGroup = null;
                     selectedShortcut = sc;
                 }
+            }, null);
+
+            AddShortcutCommand = new RelayCommand((obj) => 
+            {
+                var add = new AddShortcutViewModel(Groups);
+                var addWindow = new AddShortcutWindow(add);
+                addWindow.ShowDialog();
             }, null);
         }
 

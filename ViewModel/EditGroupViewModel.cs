@@ -16,7 +16,6 @@ namespace SmartShortcuts.ViewModel
 
         public RelayCommand RemoveCommand { get; }
         public RelayCommand OkCommand { get; }
-        public RelayCommand CancelCommand { get; }
 
         public ObservableCollection<Shortcut> Shortcuts { get; set; }
         public Shortcut SelectedItem { get; set; }
@@ -34,8 +33,6 @@ namespace SmartShortcuts.ViewModel
                 removedShortcuts.Add(SelectedItem);
                 Shortcuts.Remove(SelectedItem);
             }, (obj) => SelectedItem != null);
-            
-            CancelCommand = new RelayCommand((obj) => CloseAction?.Invoke(), null);
            
             OkCommand = new RelayCommand((obj) =>
             {

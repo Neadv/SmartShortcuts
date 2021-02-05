@@ -89,13 +89,14 @@ namespace SmartShortcuts.Model
         private int selectedAction;
         private DateTime lastModified;
 
-        public Shortcut(string name, string icon = "")
+        public Shortcut(string name, string icon = "", ShortcutType type = ShortcutType.Folder)
         {
             Name = name;
             IconPath = icon;
             Actions = new ObservableCollection<IAction>();
             selectedAction = -1;
             LastModified = DateTime.Now;
+            Type = type;
         }
 
         public void AddAction(IAction action)

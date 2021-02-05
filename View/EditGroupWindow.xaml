@@ -48,7 +48,7 @@
         <Button Grid.Row="3" Grid.Column="1" Margin="15" Command="{Binding OkCommand}" Padding="5" IsDefault="True">
             <TextBlock Text="Ok" FontSize="14"/>
         </Button>
-        <Button Grid.Row="3" Margin="15" Command="{Binding CancelCommand}" IsDefault="True" Padding="5">
+        <Button Grid.Row="3" Margin="15" IsCancel="True" Padding="5">
             <TextBlock Text="Cancel" FontSize="14"/>
         </Button>
     </Grid>

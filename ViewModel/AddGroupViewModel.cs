@@ -11,7 +11,6 @@ namespace SmartShortcuts.ViewModel
 
         public Action CloseAction { get; set; }
         public RelayCommand AddCommand { get; }
-        public RelayCommand CancelCommand { get; }
 
         public AddGroupViewModel(IList<Group> groups)
         {
@@ -22,7 +21,6 @@ namespace SmartShortcuts.ViewModel
                 CloseAction?.Invoke();
             },
             (obj) => Name != null && Name != "");
-            CancelCommand = new RelayCommand((obj) => CloseAction?.Invoke(), null);
         }
 
     }
