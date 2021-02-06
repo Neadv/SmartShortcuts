@@ -28,5 +28,15 @@ namespace SmartShortcuts
         {
             (DataContext as MainViewModel).SelectedItemCommand.Execute((sender as TreeView).SelectedItem);
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as MainViewModel).LoadCommand.Execute(sender);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            (DataContext as MainViewModel).CloseCommand.Execute(sender);
+        }
     }
 }

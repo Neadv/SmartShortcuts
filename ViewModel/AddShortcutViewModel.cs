@@ -93,7 +93,7 @@ namespace SmartShortcuts.ViewModel
             OkCommand = new RelayCommand((obj) =>
             {
                 Shortcut shortcut = new Shortcut(Name, ShortcutPath, selectedType);
-                shortcut.AddAction(new RunAction(ShortcutPath));
+                shortcut.AddAction(new ShortcutAction(ShortcutPath));
                 selectedGroup.AddShortcut(shortcut);
                 CloseAction?.Invoke();
             }, (obj) => selectedGroup != null && Validate());

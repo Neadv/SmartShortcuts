@@ -35,7 +35,7 @@ namespace SmartShortcuts.Model
                 OnPropertyChanged();
             }
         }
-
+        
         public ShortcutType Type
         {
             get { return type; }
@@ -69,6 +69,7 @@ namespace SmartShortcuts.Model
             }
         }
 
+        [Newtonsoft.Json.JsonIgnore]
         public ImageSource Icon
         {
             get
@@ -79,7 +80,7 @@ namespace SmartShortcuts.Model
             }
         }
 
-        public ObservableCollection<IAction> Actions { get; set; }
+        public ObservableCollection<ShortcutAction> Actions { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -93,13 +94,13 @@ namespace SmartShortcuts.Model
         {
             Name = name;
             IconPath = icon;
-            Actions = new ObservableCollection<IAction>();
+            Actions = new ObservableCollection<ShortcutAction>();
             selectedAction = -1;
             LastModified = DateTime.Now;
             Type = type;
         }
 
-        public void AddAction(IAction action)
+        public void AddAction(ShortcutAction action)
         {
             Actions.Add(action);
         }

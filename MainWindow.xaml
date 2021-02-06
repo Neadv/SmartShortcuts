@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartShortcuts"
         mc:Ignorable="d"
-        Title="SmartShortcuts" Height="600" Width="1000" WindowStyle="ThreeDBorderWindow">
+        Title="SmartShortcuts" Height="600" Width="1000" WindowStyle="ThreeDBorderWindow" Loaded="Window_Loaded" Closing="Window_Closing">
     <DockPanel>
         <Menu DockPanel.Dock="Top" Padding="5">
             <MenuItem Header="File">

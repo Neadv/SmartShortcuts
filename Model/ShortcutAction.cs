@@ -5,7 +5,14 @@ using System.Runtime.CompilerServices;
 
 namespace SmartShortcuts.Model
 {
-    class RunAction : IAction
+    public enum ActionType
+    {
+        Run,
+        RunWithParameters,
+        OpenIn,
+        Script
+    }
+    public class ShortcutAction
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,13 +42,28 @@ namespace SmartShortcuts.Model
             }
         }
 
+        public ActionType Type
+        {
+            get
+            {
+                return type;
+            }
+            set
+            {
+                type = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string args;
         private string path;
+        private ActionType type;
 
-        public RunAction(string path, string args = "")
+        public ShortcutAction(string path, string args = "", ActionType type = ActionType.Run)
         {
             Path = path;
             Args = args;
+            Type = type;
         }
 
         public void Execute()

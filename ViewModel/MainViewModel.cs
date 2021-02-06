@@ -21,47 +21,28 @@ namespace SmartShortcuts.ViewModel
         public RelayCommand EditGroupCommand { get; }
         public RelayCommand RunShortcutCommand { get; }
         public RelayCommand SelectedItemCommand { get; }
+        public RelayCommand LoadCommand { get; }
+        public RelayCommand CloseCommand { get; }
 
-        public ObservableCollection<Group> Groups { get; set; }
+        public ObservableCollection<Group> Groups 
+        {
+            get => groups;
+            set 
+            {
+                groups = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private const string PATH_TO_SAVE = "Shortcuts.json";
 
         private Group selectedGroup = null;
         private Shortcut selectedShortcut = null;
+        private ObservableCollection<Group> groups;
 
         public MainViewModel()
         {
-            Groups = new ObservableCollection<Group>
-            {
-                new Group("General")
-                {
-                    Shortcuts = new ObservableCollection<Shortcut>
-                    {
-                        new Shortcut("Файтинг", @"C:\Users\Neadekvashka\Desktop\ConsoleApp1\bin\Release\netcoreapp3.1\publish\ConsoleApp1.exe")
-                        {
-                            Actions = new ObservableCollection<IAction>
-                            {
-                                new RunAction(@"C:\Users\Neadekvashka\Desktop\ConsoleApp1\bin\Release\netcoreapp3.1\publish\ConsoleApp1.exe"),
-                            },
-                            Type = ShortcutType.Application
-                        },
-                        new Shortcut("OpenGL")
-                        {
-                            Actions = new ObservableCollection<IAction>
-                            {
-                                new RunAction(@"C:\Users\Neadekvashka\Desktop\TestOpenGL"),
-                            }
-                        },
-                        new Shortcut("Labs", @"C:\Users\Neadekvashka\Desktop\Лабы.7z")
-                        {
-                            Actions = new ObservableCollection<IAction>
-                            {
-                                new RunAction(@"C:\Users\Neadekvashka\Desktop\Лабы.7z"),
-                            }
-                        }
-                    }
-                }
-            };
-            
-            AddNewGroupCommand = new RelayCommand((obj) => 
+            AddNewGroupCommand = new RelayCommand((obj) =>
             {
                 var addGroup = new AddGroupViewModel(Groups);
                 var addWindow = new AddGroupWindow(addGroup);
@@ -91,12 +72,20 @@ namespace SmartShortcuts.ViewModel
                 }
             }, null);
 
-            AddShortcutCommand = new RelayCommand((obj) => 
+            AddShortcutCommand = new RelayCommand((obj) =>
             {
                 var add = new AddShortcutViewModel(Groups);
                 var addWindow = new AddShortcutWindow(add);
                 addWindow.ShowDialog();
             }, null);
+
+            LoadCommand = new RelayCommand((obj) =>
+            {
+                Groups = ShortcutSerializer.Deserialize(PATH_TO_SAVE);
+                if (Groups == null)
+                    Groups = new ObservableCollection<Group> { new Group("General") };
+            }, null);
+            CloseCommand = new RelayCommand((obj) => ShortcutSerializer.Serialize(Groups, PATH_TO_SAVE), null);
         }
 
         public void RunShortcut(Shortcut shortcut)
