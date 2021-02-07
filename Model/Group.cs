@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,7 +41,12 @@ namespace SmartShortcuts.Model
             Shortcuts.Add(shortcut);
         }
 
-        private void OnPropertyChanged([CallerMemberShip]string prop = "")
+        public void RemoveShortcut(Shortcut shortcut)
+        {
+            Shortcuts.Remove(shortcut);
+        }
+
+        private void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }

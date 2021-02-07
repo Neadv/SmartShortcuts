@@ -16,6 +16,9 @@ namespace SmartShortcuts.Services
 
         public static ImageSource GetIcon(string path)
         {
+            if (path == null)
+                return null;
+
             if (icons.ContainsKey(path))
                 return icons[path];
             if (File.Exists(path))

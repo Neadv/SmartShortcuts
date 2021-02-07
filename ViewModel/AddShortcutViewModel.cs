@@ -19,7 +19,7 @@ namespace SmartShortcuts.ViewModel
             set
             {
                 selectedGroup = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedGroup));
             }
         }
         public ShortcutType SelectedType
@@ -28,7 +28,7 @@ namespace SmartShortcuts.ViewModel
             set
             {
                 selectedType = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedType));
             }
         }
         public string Name
@@ -37,7 +37,7 @@ namespace SmartShortcuts.ViewModel
             set
             {
                 name = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Name));
             }
         }
         public string ShortcutPath
@@ -46,7 +46,8 @@ namespace SmartShortcuts.ViewModel
             set
             {
                 shortcutPath = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(ShortcutPath));
+                OnPropertyChanged(nameof(Icon));
             }
         }
         public IList<Model.Group> Groups { get; set; }
@@ -56,6 +57,9 @@ namespace SmartShortcuts.ViewModel
         public RelayCommand OpenFileCommand { get; }
         public RelayCommand OpenFolderCommand { get; }
         public RelayCommand OkCommand { get; }
+        public RelayCommand AdvancedSettingCommand { get; }
+
+        public bool IsAdvancedSettings { get; private set; } = false;
 
         public string Error => throw new NotImplementedException();
 
@@ -97,6 +101,12 @@ namespace SmartShortcuts.ViewModel
                 selectedGroup.AddShortcut(shortcut);
                 CloseAction?.Invoke();
             }, (obj) => selectedGroup != null && Validate());
+
+            AdvancedSettingCommand = new RelayCommand((obj) =>
+            {
+                IsAdvancedSettings = true;
+                CloseAction?.Invoke();
+            }, null);
         }
 
         private void SetPath(string path)
@@ -122,7 +132,7 @@ namespace SmartShortcuts.ViewModel
                 else if (extension == ".exe")
                     SelectedType = ShortcutType.Application;
                 else
-                    selectedType = ShortcutType.File;
+                    SelectedType = ShortcutType.File;
 
                 Name = name;
             }
@@ -147,7 +157,7 @@ namespace SmartShortcuts.ViewModel
             return "Enter shortcut name";
         }
 
-        private void OnPropertyChanged([CallerMemberShip] string prop = "")
+        private void OnPropertyChanged(string prop)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }

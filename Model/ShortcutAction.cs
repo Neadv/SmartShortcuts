@@ -16,6 +16,19 @@ namespace SmartShortcuts.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string Path
         {
             get
@@ -57,6 +70,7 @@ namespace SmartShortcuts.Model
 
         private string args;
         private string path;
+        private string name;
         private ActionType type;
 
         public ShortcutAction(string path, string args = "", ActionType type = ActionType.Run)
@@ -64,6 +78,7 @@ namespace SmartShortcuts.Model
             Path = path;
             Args = args;
             Type = type;
+            Name = Type.ToString();
         }
 
         public void Execute()

@@ -1,7 +1,6 @@
 ﻿using System;
 using SmartShortcuts.Services;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
 
@@ -22,7 +21,7 @@ namespace SmartShortcuts.Model
             set
             {
                 name = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Name));
             }
         }
 
@@ -32,7 +31,8 @@ namespace SmartShortcuts.Model
             set
             {
                 iconPath = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(IconPath));
+                OnPropertyChanged(nameof(Icon));
             }
         }
         
@@ -42,7 +42,7 @@ namespace SmartShortcuts.Model
             set
             {
                 type = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Type));
             }
         }
 
@@ -55,17 +55,7 @@ namespace SmartShortcuts.Model
             set
             {
                 lastModified = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int SelectedAction
-        {
-            get { return selectedAction; }
-            set
-            {
-                selectedAction = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(LastModified));
             }
         }
 
@@ -87,25 +77,36 @@ namespace SmartShortcuts.Model
         private ShortcutType type;
         private string iconPath;
         private string name;
-        private int selectedAction;
         private DateTime lastModified;
-
+        
+        [Newtonsoft.Json.JsonConstructor]
         public Shortcut(string name, string icon = "", ShortcutType type = ShortcutType.Folder)
         {
             Name = name;
             IconPath = icon;
             Actions = new ObservableCollection<ShortcutAction>();
-            selectedAction = -1;
             LastModified = DateTime.Now;
             Type = type;
         }
 
-        public void AddAction(ShortcutAction action)
+        public Shortcut(Shortcut shortcut)
         {
-            Actions.Add(action);
+            Name = shortcut.Name;
+            IconPath = shortcut.IconPath;
+            Type = shortcut.Type;
+            LastModified = DateTime.Now;
+
+            Actions = new ObservableCollection<ShortcutAction>();
+            foreach (var a in shortcut.Actions)
+            {
+                Actions.Add(a);
+            }
         }
 
-        private void OnPropertyChanged([CallerMemberName] string prop = "")
+        public void AddAction(ShortcutAction action) => Actions.Add(action);
+        public void RemoveAction(ShortcutAction action) => Actions.Remove(action);
+
+        private void OnPropertyChanged(string prop)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }

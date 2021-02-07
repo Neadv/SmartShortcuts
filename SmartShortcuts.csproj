@@ -64,7 +64,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\CallerMemberShipAttribute.cs" />
     <Compile Include="Model\Group.cs" />
     <Compile Include="Model\ShortcutAction.cs" />
     <Compile Include="Model\Shortcut.cs" />
@@ -74,6 +73,7 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModel\AddGroupViewModel.cs" />
     <Compile Include="ViewModel\AddShortcutViewModel.cs" />
+    <Compile Include="ViewModel\AdvancedShortcutViewModel.cs" />
     <Compile Include="ViewModel\EditGroupViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="View\AddGroupWindow.xaml.cs">
@@ -81,6 +81,9 @@
     </Compile>
     <Compile Include="View\AddShortcutWindow.xaml.cs">
       <DependentUpon>AddShortcutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdvancedShortcutWindow.xaml.cs">
+      <DependentUpon>AdvancedShortcutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditGroupWindow.xaml.cs">
       <DependentUpon>EditGroupWindow.xaml</DependentUpon>
@@ -102,6 +105,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddShortcutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdvancedShortcutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

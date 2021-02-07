@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using SmartShortcuts.View;
+using System.Runtime.CompilerServices;
 
 namespace SmartShortcuts.ViewModel
 {
@@ -19,15 +20,16 @@ namespace SmartShortcuts.ViewModel
         public RelayCommand AddShortcutCommand { get; }
         public RelayCommand AddNewGroupCommand { get; }
         public RelayCommand EditGroupCommand { get; }
+        public RelayCommand EditShortcutCommand { get; }
         public RelayCommand RunShortcutCommand { get; }
         public RelayCommand SelectedItemCommand { get; }
         public RelayCommand LoadCommand { get; }
         public RelayCommand CloseCommand { get; }
 
-        public ObservableCollection<Group> Groups 
+        public ObservableCollection<Group> Groups
         {
             get => groups;
-            set 
+            set
             {
                 groups = value;
                 OnPropertyChanged();
@@ -58,26 +60,20 @@ namespace SmartShortcuts.ViewModel
 
             RunShortcutCommand = new RelayCommand((obj) => RunShortcut(selectedShortcut), (obj) => selectedShortcut != null);
 
-            SelectedItemCommand = new RelayCommand((obj) =>
-            {
-                if (obj is Group g)
-                {
-                    selectedShortcut = null;
-                    selectedGroup = g;
-                }
-                else if (obj is Shortcut sc)
-                {
-                    selectedGroup = null;
-                    selectedShortcut = sc;
-                }
-            }, null);
+            SelectedItemCommand = new RelayCommand((obj) => SelectedItemChanged(obj), null);
 
             AddShortcutCommand = new RelayCommand((obj) =>
             {
-                var add = new AddShortcutViewModel(Groups);
-                var addWindow = new AddShortcutWindow(add);
-                addWindow.ShowDialog();
+                if (ShowCreateShortcutWindow())
+                {
+                    ShowAdvancedShortcutWindow();
+                }
             }, null);
+
+            EditShortcutCommand = new RelayCommand((obj) =>
+            {
+                ShowAdvancedShortcutWindow(selectedShortcut);
+            }, (obj) => selectedShortcut != null);
 
             LoadCommand = new RelayCommand((obj) =>
             {
@@ -88,22 +84,44 @@ namespace SmartShortcuts.ViewModel
             CloseCommand = new RelayCommand((obj) => ShortcutSerializer.Serialize(Groups, PATH_TO_SAVE), null);
         }
 
-        public void RunShortcut(Shortcut shortcut)
+        private void SelectedItemChanged(object obj)
         {
-            if (shortcut.SelectedAction == -1)
+            if (obj is Group g)
             {
-                foreach (var action in shortcut.Actions)
-                {
-                    action.Execute();
-                }
+                selectedShortcut = null;
+                selectedGroup = g;
             }
-            else if (shortcut.SelectedAction < shortcut.Actions.Count && shortcut.SelectedAction >= 0)
+            else if (obj is Shortcut sc)
             {
-                shortcut.Actions[shortcut.SelectedAction].Execute();
+                selectedGroup = null;
+                selectedShortcut = sc;
             }
         }
 
-        private void OnPropertyChanged([CallerMemberShip] string prop = "")
+        private bool ShowCreateShortcutWindow()
+        {
+            var add = new AddShortcutViewModel(Groups);
+            var addWindow = new AddShortcutWindow(add);
+            addWindow.ShowDialog();
+            return add.IsAdvancedSettings;
+        }
+
+        private void ShowAdvancedShortcutWindow(Shortcut shortcut = null)
+        {
+            var addAdv = new AdvancedShortcutViewModel(groups, shortcut);
+            var addAdvWindow = new AdvancedShortcutWindow(addAdv);
+            addAdvWindow.ShowDialog();
+        }
+
+        public void RunShortcut(Shortcut shortcut)
+        {
+            foreach (var action in shortcut.Actions)
+            {
+                action.Execute();
+            }
+        }
+
+        private void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
