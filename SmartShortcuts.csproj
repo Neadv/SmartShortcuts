@@ -76,6 +76,7 @@
     <Compile Include="ViewModel\AdvancedShortcutViewModel.cs" />
     <Compile Include="ViewModel\EditGroupViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ShortcutActionViewModel.cs" />
     <Compile Include="View\AddGroupWindow.xaml.cs">
       <DependentUpon>AddGroupWindow.xaml</DependentUpon>
     </Compile>
@@ -87,6 +88,9 @@
     </Compile>
     <Compile Include="View\EditGroupWindow.xaml.cs">
       <DependentUpon>EditGroupWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ShortcutActionWindow.xaml.cs">
+      <DependentUpon>ShortcutActionWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -113,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditGroupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ShortcutActionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

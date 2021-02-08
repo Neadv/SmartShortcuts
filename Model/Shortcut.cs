@@ -80,7 +80,7 @@ namespace SmartShortcuts.Model
         private DateTime lastModified;
         
         [Newtonsoft.Json.JsonConstructor]
-        public Shortcut(string name, string icon = "", ShortcutType type = ShortcutType.Folder)
+        public Shortcut(string name = "", string icon = "", ShortcutType type = ShortcutType.Folder)
         {
             Name = name;
             IconPath = icon;

@@ -1,5 +1,6 @@
 ﻿using SmartShortcuts.Model;
 using SmartShortcuts.Services;
+using SmartShortcuts.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,6 +48,8 @@ namespace SmartShortcuts.ViewModel
         public RelayCommand SelectIconCommand { get; }
         public RelayCommand OkCommand { get; }
         public RelayCommand RemoveActionCommand { get; }
+        public RelayCommand EditActionCommand { get; }
+        public RelayCommand AddActionCommand { get; }
 
         public IList<Group> Groups { get; }
 
@@ -63,7 +66,7 @@ namespace SmartShortcuts.ViewModel
             oldShortcut = shortcut;
             if (shortcut == null)
             {
-                Shortcut = new Shortcut("");
+                Shortcut = new Shortcut();
                 SelectedGroup = groups[0];
             }
             else
@@ -82,6 +85,26 @@ namespace SmartShortcuts.ViewModel
             OkCommand = new RelayCommand((obj) => SaveShortcut(), (obj) => Shortcut.Name != "" && SelectedGroup != null);
 
             RemoveActionCommand = new RelayCommand((obj) => Shortcut.RemoveAction(selectedAction), (obj) => SelectedAction != null);
+            AddActionCommand = new RelayCommand((obj) =>
+            {
+                var vm = new ShortcutActionViewModel();
+                var view = new ShortcutActionWindow(vm);
+                view.ShowDialog();
+                if (vm.Result)
+                    Shortcut.AddAction(vm.Action);
+            }, null);
+            EditActionCommand = new RelayCommand((obj) =>
+            {
+                var vm = new ShortcutActionViewModel(selectedAction);
+                var view = new ShortcutActionWindow(vm);
+                view.ShowDialog();
+                if (vm.Result)
+                {
+                    Shortcut.RemoveAction(selectedAction);
+                    Shortcut.AddAction(vm.Action);
+                    selectedAction = vm.Action;
+                }
+            }, (obj) => SelectedAction != null);
         }
 
         private void SaveShortcut()

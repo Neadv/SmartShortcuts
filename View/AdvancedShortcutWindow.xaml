@@ -73,9 +73,9 @@
                 </ListBox>
 
                 <StackPanel Orientation="Vertical" Grid.Column="1" Margin="5">
-                    <Button Content="Add" Margin="5" Padding="5"/>
+                    <Button Command="{Binding AddActionCommand}" Content="Add" Margin="5" Padding="5"/>
                     <Button Command="{Binding RemoveActionCommand}" Content="Remove" Margin="5" Padding="5"/>
-                    <Button Content="Edit" Margin="5" Padding="5"/>
+                    <Button Command="{Binding EditActionCommand}" Content="Edit" Margin="5" Padding="5"/>
                 </StackPanel>
             </Grid>
         </GroupBox>

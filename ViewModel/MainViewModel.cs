@@ -100,7 +100,7 @@ namespace SmartShortcuts.ViewModel
 
         private bool ShowCreateShortcutWindow()
         {
-            var add = new AddShortcutViewModel(Groups);
+            var add = new AddShortcutViewModel(Groups, selectedGroup);
             var addWindow = new AddShortcutWindow(add);
             addWindow.ShowDialog();
             return add.IsAdvancedSettings;

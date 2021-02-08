@@ -73,12 +73,21 @@ namespace SmartShortcuts.Model
         private string name;
         private ActionType type;
 
-        public ShortcutAction(string path, string args = "", ActionType type = ActionType.Run)
+        [Newtonsoft.Json.JsonConstructor]
+        public ShortcutAction(string path = "", string args = "", ActionType type = ActionType.Run)
         {
             Path = path;
             Args = args;
             Type = type;
             Name = Type.ToString();
+        }
+
+        public ShortcutAction(ShortcutAction action)
+        {
+            Path = action.Path;
+            Args = action.Args;
+            Type = action.Type;
+            Name = action.Name;
         }
 
         public void Execute()
