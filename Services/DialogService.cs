@@ -1,5 +1,6 @@
 ﻿using System;
 using Ookii.Dialogs.Wpf;
+using System.Windows;
 
 namespace SmartShortcuts.Services
 {
@@ -22,6 +23,13 @@ namespace SmartShortcuts.Services
             if (result.HasValue && result.Value)
                 return folderDialog.SelectedPath;
             return null;
+        }
+
+        public static bool WarningDialog(string message)
+        {
+            if (MessageBox.Show(message, "Warning", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                return true;
+            return false;
         }
     }
 }

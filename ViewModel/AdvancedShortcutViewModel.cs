@@ -109,6 +109,7 @@ namespace SmartShortcuts.ViewModel
 
         private void SaveShortcut()
         {
+            Shortcut.LastModified = DateTime.Now;
             if (oldShortcut == null)
             {
                 selectedGroup.AddShortcut(Shortcut);

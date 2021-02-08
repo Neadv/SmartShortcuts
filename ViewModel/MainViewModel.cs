@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SmartShortcuts.View;
 using System.Runtime.CompilerServices;
+using SmartShortcuts.Services;
 
 namespace SmartShortcuts.ViewModel
 {
@@ -21,6 +22,8 @@ namespace SmartShortcuts.ViewModel
         public RelayCommand AddNewGroupCommand { get; }
         public RelayCommand EditGroupCommand { get; }
         public RelayCommand EditShortcutCommand { get; }
+        public RelayCommand DeleteShortcutCommand { get; }
+        public RelayCommand DeleteGroupCommand { get; }
         public RelayCommand RunShortcutCommand { get; }
         public RelayCommand SelectedItemCommand { get; }
         public RelayCommand LoadCommand { get; }
@@ -79,9 +82,33 @@ namespace SmartShortcuts.ViewModel
             {
                 Groups = ShortcutSerializer.Deserialize(PATH_TO_SAVE);
                 if (Groups == null)
-                    Groups = new ObservableCollection<Group> { new Group("General") };
+                    Groups = new ObservableCollection<Group> 
+                    {
+                        new Group("Favorite"),
+                        new Group("General") 
+                    };
             }, null);
             CloseCommand = new RelayCommand((obj) => ShortcutSerializer.Serialize(Groups, PATH_TO_SAVE), null);
+
+            DeleteGroupCommand = new RelayCommand((obj) =>
+            {
+                if (DialogService.WarningDialog($"Confirm the deletion of {selectedGroup.Name} group "))
+                    Groups.Remove(selectedGroup);
+            }, (obj) => selectedGroup != null);
+            DeleteShortcutCommand = new RelayCommand((obj) =>
+            {
+                if (DialogService.WarningDialog($"Confirm the deletion of {selectedShortcut.Name} shortcut "))
+                {
+                    foreach (var g in Groups)
+                    {
+                        if (g.Shortcuts.Contains(selectedShortcut))
+                        {
+                            g.RemoveShortcut(selectedShortcut);
+                            break;
+                        }
+                    }
+                }
+            }, (obj) => selectedShortcut != null);
         }
 
         private void SelectedItemChanged(object obj)

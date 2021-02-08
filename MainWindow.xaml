@@ -18,8 +18,8 @@
                 <MenuItem Header="Create shortcut" Command="{Binding AddShortcutCommand}"/>
                 <MenuItem Header="Edit shortcut" Command="{Binding EditShortcutCommand}"/>
                 <MenuItem Header="Edit group" Command="{Binding EditGroupCommand}"/>
-                <MenuItem Header="Delete group"/>
-                <MenuItem Header="Delete shortcut"/>
+                <MenuItem Header="Delete group" Command="{Binding DeleteGroupCommand}"/>
+                <MenuItem Header="Delete shortcut" Command="{Binding DeleteShortcutCommand}"/>
             </MenuItem>
             <MenuItem Header="Help"/>
         </Menu>
