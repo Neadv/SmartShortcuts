@@ -48,6 +48,7 @@ namespace SmartShortcuts.ViewModel
                     case ActionType.Run:
                         PathDisplayName = "Path: ";
                         ArgsDisplayName = "Args: ";
+                        Args = "";
                         break;
                     case ActionType.RunWithParameters:
                         PathDisplayName = "Path: ";

@@ -25,6 +25,14 @@
         </Menu>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <TreeView ItemsSource="{Binding Path=Groups}" MouseDoubleClick="TreeViewShortcuts_MouseDoubleClick" SelectedItemChanged="TreeView_SelectedItemChanged">
+                <TreeView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Edit shortcut" Command="{Binding EditShortcutCommand}"/>
+                        <MenuItem Header="Edit group" Command="{Binding EditGroupCommand}"/>
+                        <MenuItem Header="Delete group" Command="{Binding DeleteGroupCommand}"/>
+                        <MenuItem Header="Delete shortcut" Command="{Binding DeleteShortcutCommand}"/>
+                    </ContextMenu>
+                </TreeView.ContextMenu>
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Path=Shortcuts}">
                         <TextBlock Text="{Binding Name}" FontSize="14"/>

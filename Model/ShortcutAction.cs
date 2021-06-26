@@ -1,7 +1,9 @@
-﻿using System;
+﻿using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System;
+using System.IO;
 
 namespace SmartShortcuts.Model
 {
@@ -94,6 +96,13 @@ namespace SmartShortcuts.Model
         {
             if (path == null || path == "")
                 throw new WarningException("empty path");
+
+            Regex directoryPattern = new Regex(@"[\w-\.\s]+.\w+\z");
+            string currentDirectory = directoryPattern.Replace(Path, "");
+            if (!Directory.Exists(currentDirectory))
+                return;
+            Environment.CurrentDirectory = currentDirectory;
+
             Process.Start(Path, Args);
         }
 

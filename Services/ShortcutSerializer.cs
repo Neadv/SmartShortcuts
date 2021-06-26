@@ -14,7 +14,6 @@ namespace SmartShortcuts.Model
         {
             if (!File.Exists(path))
                 return null;
-
             using (StreamReader sr = new StreamReader(path))
             {
                 string json = sr.ReadToEnd();
@@ -24,6 +23,7 @@ namespace SmartShortcuts.Model
 
         public static void Serialize(ObservableCollection<Group> groups, string path)
         {
+            path = AppDomain.CurrentDomain.BaseDirectory + path;
             using (StreamWriter sw = new StreamWriter(path))
             {
                 string json = JsonConvert.SerializeObject(groups, Formatting.Indented);
